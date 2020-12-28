@@ -1,5 +1,3 @@
-console.log("Alrighty, we're ready to go!");
-
 // GLOBAL
 // -----------------------------------------------------
 /*
@@ -10,14 +8,22 @@ console.log("Alrighty, we're ready to go!");
 
     }
 */
-var foodItems = [
-    {
-        name: 'Potato Chicken',
-    },
-    {
-        name: 'Curry'
+
+// GraphQL query to search for food items by generic term
+const QUERY_GENERIC_SEARCH = `
+    query SearchFoodItemsByGenericTerm($searchTerm: String!) {
+        searchFoodItemsByGenericTerm(searchTerm:$searchTerm) {
+            id
+            name
+            cuisine
+            labels
+        }
     }
-];
+`;
+
+// Backend URL for querying
+const BACKEND_URL = 'http://127.0.0.1:3000/graphql';
+
 
 // FUNCTIONS
 // -----------------------------------------------------
@@ -29,13 +35,36 @@ const searchFoodItemsByGenericTerm = (eventObj) => {
     let searchTerm = eventObj.target.elements.genericSearchTerm.value;
     console.log("Searching with search term: '" + searchTerm + "'");
 
-    RenderSearchPageApp();
+    fetch(BACKEND_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                query: QUERY_GENERIC_SEARCH,
+                variables: {searchTerm}
+            })
+        })
+        .then((response) => {
+            if (!response.ok) {
+                console.error(response);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.data);
+            RenderSearchPageApp(data.data.searchFoodItemsByGenericTerm);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 }
 
 
 // APP PAGE
 // -----------------------------------------------------
-const RenderSearchPageApp = () => {
+const RenderSearchPageApp = (foodItems) => {
     const searchPageApp = (
         <div>
     
@@ -61,4 +90,4 @@ const RenderSearchPageApp = () => {
     ReactDOM.render(searchPageApp, document.getElementById('searchPage'));
 };
 
-RenderSearchPageApp();
+RenderSearchPageApp([]);
