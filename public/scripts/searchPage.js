@@ -1,6 +1,25 @@
-"use strict";
+'use strict';
 
 console.log("Alrighty, we're ready to go!");
+
+// GLOBAL
+// -----------------------------------------------------
+/*
+    Schema of food items:
+    {
+        name: String
+        labels: [String]
+
+    }
+*/
+var foodItems = [{
+    name: 'Potato Chicken'
+}, {
+    name: 'Curry'
+}];
+
+// FUNCTIONS
+// -----------------------------------------------------
 
 var searchFoodItemsByGenericTerm = function searchFoodItemsByGenericTerm(eventObj) {
     eventObj.preventDefault(); // Prevent full page refresh
@@ -12,24 +31,40 @@ var searchFoodItemsByGenericTerm = function searchFoodItemsByGenericTerm(eventOb
     RenderSearchPageApp();
 };
 
+// APP PAGE
 // -----------------------------------------------------
 var RenderSearchPageApp = function RenderSearchPageApp() {
     var searchPageApp = React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-            "p",
+            'p',
             null,
-            "This is the search component!"
+            'This is the search component!'
         ),
         React.createElement(
-            "form",
+            'form',
             { onSubmit: searchFoodItemsByGenericTerm },
-            React.createElement("input", { type: "text", name: "genericSearchTerm" }),
+            React.createElement('input', { type: 'text', name: 'genericSearchTerm' }),
             React.createElement(
-                "button",
+                'button',
                 null,
-                "Search"
+                'Search'
+            )
+        ),
+        React.createElement(
+            'p',
+            null,
+            React.createElement(
+                'ul',
+                null,
+                foodItems.map(function (foodItem) {
+                    return React.createElement(
+                        'li',
+                        { key: foodItem.name },
+                        foodItem.name
+                    );
+                })
             )
         )
     );
