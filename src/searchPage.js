@@ -19,8 +19,6 @@ const BACKEND_URL = 'http://127.0.0.1:3000/graphql';
 // ----------------------------------
 // REACT COMPONENTS
 // ----------------------------------
-
-
 class SearchPage extends React.Component {
     constructor(props) {
         super(props);
@@ -31,11 +29,7 @@ class SearchPage extends React.Component {
     }
 
     handleSearchOptions(results) {
-        this.setState(() => {
-            return {
-                foundFoodItems: results
-            }
-        })
+        this.setState(() => ({ foundFoodItems: results }));
     }
 
     render() {
@@ -108,41 +102,26 @@ class SearchForm extends React.Component {
     }
 }
 
-class SearchResults extends React.Component {
-    render() {
-        return (
-            <div>
-                <ul>
-                    {this.props.foundFoodItems.map((foodItem) => 
-                    (
-                        <li key={foodItem.id}><FoodItem foodItem={foodItem} /></li>
-                    )
-                    )}
-                </ul>
-            </div>
-        )
-    }
-}
+const SearchResults = (props) => (
+    <div>
+        <ul>
+            {props.foundFoodItems.map((foodItem) => 
+            (
+                <li key={foodItem.id}><FoodItem foodItem={foodItem} /></li>
+            )
+            )}
+        </ul>
+    </div>
+);
 
-class FoodItem extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.foodItem = this.props.foodItem;
-    }
-
-    render() {
-        return (
-            <div>
-                <ul>
-                    <li key={this.foodItem.id + this.foodItem.name}>{this.foodItem.name}</li>
-                    <li key={this.foodItem.id + this.foodItem.cuisine}>{this.foodItem.cuisine}</li>
-                </ul>
-            </div>
-        )
-    }
-}
-
+const FoodItem = (props)> (
+    <div>
+        <ul>
+            <li key={props.foodItem.id + props.foodItem.name}>{props.foodItem.name}</li>
+            <li key={props.foodItem.id + props.foodItem.cuisine}>{props.foodItem.cuisine}</li>
+        </ul>
+    </div>
+);
 
 // ----------------------------------
 // PAGE SETUP
