@@ -86,7 +86,6 @@ class SearchForm extends React.Component {
         })
         .then(data => {
             const searchResults = data.data.searchFoodItemsByGenericTerm;
-            console.log(searchResults);
             this.props.handleSearchOptions(searchResults);
         })
         .catch((err) => {
@@ -116,7 +115,7 @@ class SearchResults extends React.Component {
                 <ul>
                     {this.props.foundFoodItems.map((foodItem) => 
                     (
-                        <li><FoodItem foodItem={foodItem} /></li>
+                        <li key={foodItem.id}><FoodItem foodItem={foodItem} /></li>
                     )
                     )}
                 </ul>

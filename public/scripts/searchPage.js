@@ -112,7 +112,6 @@ var SearchForm = function (_React$Component2) {
                 return response.json();
             }).then(function (data) {
                 var searchResults = data.data.searchFoodItemsByGenericTerm;
-                console.log(searchResults);
                 _this3.props.handleSearchOptions(searchResults);
             }).catch(function (err) {
                 console.error(err);
@@ -165,7 +164,7 @@ var SearchResults = function (_React$Component3) {
                     this.props.foundFoodItems.map(function (foodItem) {
                         return React.createElement(
                             'li',
-                            null,
+                            { key: foodItem.id },
                             React.createElement(FoodItem, { foodItem: foodItem })
                         );
                     })
