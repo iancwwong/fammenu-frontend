@@ -6,12 +6,17 @@
   "license": "MIT",
   "scripts": {
     "serve": "live-server public",
-    "build": "babel src/searchPage.js --out-file=public/scripts/searchPage.js --presets=env,react --watch"
+    "build": "webpack",
+    "build-babel": "babel src/searchPage.js --out-file=public/scripts/searchPage.js --presets=env,react --watch"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "webpack": "3.1.0"
   }
 }

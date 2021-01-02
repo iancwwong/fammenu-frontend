@@ -5,11 +5,10 @@ WORKDIR /app
 
 # Prepare app dependencies
 ADD package.json /app/package.json
-RUN npm install -g yarn
-
-# Copy over the source code
 ADD . /app
+RUN npm install -g yarn && \
+    yarn run build
 
 # Start the app from container
 EXPOSE 8080
-CMD [ "yarn", "serve" ]
+CMD [ "yarn", "run", "serve" ]
