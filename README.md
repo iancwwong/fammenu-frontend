@@ -1,12 +1,13 @@
 # Frontend
 
 ## Running notes
-- Node's live-server
-- Node's Babel, babel-env, and babel-react preset
+
+### Prereq
+- Yarn
 
 Running the front-end:
 
 ```
-live-server public
-babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
+yarn run build
+yarn run serve
 ```
