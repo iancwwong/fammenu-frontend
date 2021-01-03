@@ -52,7 +52,12 @@ export default class SearchForm extends React.Component {
             return response.json();
         })
         .then(data => {
-            const searchResults = data.data.searchFoodItemsByGenericTerm;
+            let searchResults = data.data.searchFoodItemsByGenericTerm;
+            
+            // Handle no data return
+            if (!searchResults) {
+                searchResults = [];
+            }
             this.props.handleSearchOptions(searchResults);
         })
         .catch((err) => {
