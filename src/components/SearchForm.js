@@ -26,12 +26,7 @@ export default class SearchForm extends React.Component {
 
     // Todo: Support multiple search modes
 
-    constructor(props) {
-        super(props);
-        this.searchByGenericTerm = this.searchByGenericTerm.bind(this);
-    }
-
-    searchByGenericTerm(eventObj) {
+    searchByGenericTerm = (eventObj) => {
         
         eventObj.preventDefault();
 

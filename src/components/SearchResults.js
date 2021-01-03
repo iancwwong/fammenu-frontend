@@ -3,6 +3,7 @@ import FoodItem from './FoodItem';
 
 const SearchResults = (props) => (
     <div>
+        <p>{props.foundFoodItems.length} food items found!</p>
         <ul>
             {props.foundFoodItems.map((foodItem) => 
             (

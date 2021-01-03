@@ -3,15 +3,12 @@ import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 
 export default class SearchPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            foundFoodItems: []
-        };
-        this.handleSearchOptions = this.handleSearchOptions.bind(this);
-    }
 
-    handleSearchOptions(results) {
+    state = {
+        foundFoodItems: []
+    };
+
+    handleSearchOptions = (results)  => {
         this.setState(() => ({ foundFoodItems: results }));
     }
 
