@@ -10,4 +10,7 @@ Running the front-end:
 ```
 yarn run build
 yarn run serve
+
+# In dev mode
+yarn run dev-server
 ```

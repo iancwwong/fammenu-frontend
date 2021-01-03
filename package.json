@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "live-server public",
     "build": "webpack",
-    "build-babel": "babel src/searchPage.js --out-file=public/scripts/searchPage.js --presets=env,react --watch"
+    "dev-server": "webpack-dev-server"
   },
   "dependencies": {
     "babel-core": "6.25.0",
@@ -17,6 +17,7 @@
     "live-server": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "webpack": "3.1.0"
+    "webpack": "3.1.0",
+    "webpack-dev-server": "2.5.1"
   }
 }
