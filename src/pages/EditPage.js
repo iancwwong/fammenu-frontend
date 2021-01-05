@@ -15,7 +15,7 @@ export default class EditPage extends React.Component {
             foodItem: foodItemObj
         }));
     }
-    
+
     componentDidMount() {
         console.log("Created Edit page component! Loading in the food item obj with id: " + this.state.foodItemId);
         dataClient.getFoodItemById(this.state.foodItemId, this.handleSetFoodItemObj, (err) => console.error(err));
@@ -26,7 +26,12 @@ export default class EditPage extends React.Component {
             <div>
                 <Navbar />
                 <h2>Edit Food Item: {this.state.foodItemId}</h2>
-                {this.state.foodItem && <EditFoodItemForm foodItem={this.state.foodItem} />}
+                {this.state.foodItem && 
+                    <EditFoodItemForm 
+                        foodItem={this.state.foodItem}
+                        handleSetFoodItemObj={this.handleSetFoodItemObj}
+                    />
+                }
             </div>
         );
     }

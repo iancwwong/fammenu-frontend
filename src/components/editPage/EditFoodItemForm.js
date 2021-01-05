@@ -1,4 +1,5 @@
 import React from 'react';
+const dataClient = require('../../utils/DataClient');
 
 export default class EditFoodItemForm extends React.Component {
     
@@ -22,6 +23,7 @@ export default class EditFoodItemForm extends React.Component {
 
         console.log("Updating food item: ");
         console.log(foodItemToUpdate);
+        dataClient.updateFoodItemById(foodItemToUpdate, this.props.handleSetFoodItemObj, (err) => console.log(err));
     }
 
     render() {
@@ -31,23 +33,26 @@ export default class EditFoodItemForm extends React.Component {
                 <form onSubmit={this.handleUpdateFoodItem}>
                     <label>
                         Id:
-                        <input type="text" name="id" disabled="true" value={this.props.foodItem.id} />
                     </label>
+                <input type="text" name="id" disabled={true} defaultValue={this.props.foodItem.id} />
+                    
                     <br></br>
                     <label>
                         Name:
-                        <input type="text" name="name" value={this.props.foodItem.name}/>
                     </label>
+                    <input type="text" name="name" defaultValue={this.props.foodItem.name}/>
                     <br></br>
                     <label>
                         Cuisine:
-                        <input type="text" name="cuisine" value={this.props.foodItem.cuisine}/>
                     </label>
+                    <input type="text" name="cuisine" defaultValue={this.props.foodItem.cuisine}/>
+                    
                     <br></br>
                     <label>
                         Labels:
-                        <input type="text" name="labels" value={this.props.foodItem.labels.join(";")}/>
                     </label>
+                    <input type="text" name="labels" defaultValue={this.props.foodItem.labels.join(";")}/>
+                    
                     <br></br>
                     <button>Update</button>
                 </form>
