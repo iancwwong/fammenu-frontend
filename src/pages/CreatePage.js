@@ -21,13 +21,17 @@ export default class CreatePage extends React.Component {
 
     state = {
         createdFoodItem: undefined,
-        error: undefined,
-        attemptedToCreateFoodItem: false
+        error: undefined
     }
 
     graphqlClient = new GraphQLClient(BACKEND_URL);
 
     handleCreateFoodItem = (eventObj) => {
+
+        // Reset food item value
+        this.setState(() => ({
+            createdFoodItem: undefined
+        }));
 
         eventObj.preventDefault();
 
@@ -50,21 +54,20 @@ export default class CreatePage extends React.Component {
 
         this.graphqlClient.request(MUTATION_CREATE_FOOD_ITEM, newFoodItem)
         .then((data) => {
-            this.setState(() => ({
-                attemptedToCreateFoodItem: true
-            }));
             console.log(data);
             if (!data.addFoodItem) {
                 console.log("Whoops, no food item was created!");
             } else {
                 console.log("Successfully created food item!");
                 this.setState(() => ({
-                    createdFoodItem: data.addFoodItem
+                    createdFoodItem: data.addFoodItem,
+                    error: undefined                // Reset any existing errors
                 }));
             }
         })
         .catch((err) => {
             console.error(err);
+            // Unsure of what other exceptions could pop up
             const exceptionObj = err.response.errors[0].extensions.exception;
             this.handleFoodItemCreationErrors(exceptionObj);
         });
@@ -83,7 +86,7 @@ export default class CreatePage extends React.Component {
                     case 11000:
                         errorMsg = 'Food Item already exists with this name';
                         break;
-                        
+
                     default:
                         errorMsg = 'MongoError: Code ' + exception.code;
                 }
@@ -95,7 +98,6 @@ export default class CreatePage extends React.Component {
         }
 
         this.setState(() => ({
-            attemptedToCreateFoodItem: true,
             error: errorMsg
         }));
     }
@@ -108,7 +110,7 @@ export default class CreatePage extends React.Component {
                 <h2>Create Page!</h2>
 
                 {this.state.createdFoodItem && <p>Successfully created food item with id: {this.state.createdFoodItem.id}</p>}
-                <p>Error: {this.state.error}</p>
+                {this.state.error && <p>Error: {this.state.error}</p>}
 
                 <form onSubmit={this.handleCreateFoodItem}>
                     <label>
