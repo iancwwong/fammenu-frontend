@@ -23,7 +23,7 @@ export default class SearchForm extends React.Component {
             <div>
                 <form onSubmit={this.searchByGenericTerm}>
                     <input type="text" name="searchTerm"></input>
-                    <button>Search</button>
+                    <button type="submit">Search</button>
                 </form>
             </div>
         );
