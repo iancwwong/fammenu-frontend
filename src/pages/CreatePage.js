@@ -13,7 +13,7 @@ export default class CreatePage extends React.Component {
         let labels = eventObj.target.elements.labels.value
                         .trim().split(";")
                         .map((label) => label.trim())
-                        .filter((label) => label);
+                        .filter((label) => label);          // Remove empty labels
 
         const newFoodItem = {
             name: name,
