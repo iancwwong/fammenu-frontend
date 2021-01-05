@@ -24,6 +24,17 @@ const MUTATION_UPDATE_FOOD_ITEM_BY_ID = gql `
     }
 `;
 
+const MUTATION_CREATE_FOOD_ITEM = gql `
+    mutation AddFoodItem($name:String!,$cuisine:String!,$labels:[String!]!) {
+        addFoodItem(name:$name,cuisine:$cuisine,labels:$labels) {
+        id
+        name
+        cuisine
+        labels
+        }
+    }
+`;
+
 const QUERY_SEARCH_BY_ID = gql `
     query SearchFoodItemsById($id:ID!) {
         getFoodItemById(id:$id) {
@@ -35,8 +46,19 @@ const QUERY_SEARCH_BY_ID = gql `
     }
 `;
 
+const QUERY_GENERIC_SEARCH = gql `
+    query SearchFoodItemsByGenericTerm($searchTerm: String!) {
+        searchFoodItemsByGenericTerm(searchTerm:$searchTerm) {
+            id
+            name
+            cuisine
+            labels
+        }
+    }
+`;
+
 // ------------------------
-// USEFUL METHODS
+// QUERIES
 // ------------------------
 const getFoodItemById = (foodItemId, callback, errorCallback) => {
     console.log("Fetching data for food item with id: " + foodItemId);
@@ -47,10 +69,23 @@ const getFoodItemById = (foodItemId, callback, errorCallback) => {
             throw new Error("No food item data obtained with id: " + foodItemId);
         }
         callback(data.getFoodItemById);
-    })
-    .catch((err) => {
+    }).catch((err) => {
         errorCallback(err);
     })
+}
+
+const searchFoodItemsByGenericTerm = (searchTerm, callback, errorCallback) => {
+    console.log("Searching generically with term: " + searchTerm);
+    GraphqlClient.request(QUERY_GENERIC_SEARCH, {searchTerm: searchTerm})
+    .then((data) => {
+
+        if (!data.searchFoodItemsByGenericTerm) {
+            throw new Error("No food item data could be obtained");
+        }
+        callback(data.searchFoodItemsByGenericTerm);
+    }).catch((err) => {
+        errorCallback(err);
+    });
 }
 
 const updateFoodItemById = (foodItemToUpdate, callback, errorCallback) => {
@@ -60,11 +95,26 @@ const updateFoodItemById = (foodItemToUpdate, callback, errorCallback) => {
             throw new Error("No data returned when updating food item of id: " + foodItemToUpdate.id);
         }
         callback(data.updateFoodItem);
-    })
-    .catch((err) => errorCallback(err));
+    }).catch((err) => errorCallback(err));
+}
+
+const createFoodItem = (foodItemToCreate, callback, errorCallback) => {
+    console.log("Creating food item: " );
+    console.log(foodItemToCreate);
+    GraphqlClient.request(MUTATION_CREATE_FOOD_ITEM, foodItemToCreate)
+    .then((data) => {
+        if (!data.addFoodItem) {
+            throw new Error("No food item was created");
+        }
+        callback(data.addFoodItem);
+    }).catch((err) => {
+        errorCallback(err);
+    });
 }
 
 module.exports = {
     getFoodItemById,
-    updateFoodItemById
+    searchFoodItemsByGenericTerm,
+    updateFoodItemById,
+    createFoodItem
 };

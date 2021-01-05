@@ -1,24 +1,9 @@
 import React from 'react';
 import { GraphQLClient, gql } from 'graphql-request';
-
-// Todo: Move the query and backend URL to separate configuration / file
-const MUTATION_CREATE_FOOD_ITEM = gql `
-    mutation AddFoodItem($name:String!,$cuisine:String!,$labels:[String!]!) {
-        addFoodItem(name:$name,cuisine:$cuisine,labels:$labels) {
-        id
-        name
-        cuisine
-        labels
-        }
-    }
-`;
-
-const BACKEND_URL = 'http://127.0.0.1:3000/graphql';
+const dataClient = require('../../utils/DataClient');
 
 // -------------------------
 export default class CreateFoodItemForm extends React.Component {
-
-    graphqlClient = new GraphQLClient(BACKEND_URL);
 
     handleCreateFoodItem = (eventObj) => {
 
@@ -38,23 +23,18 @@ export default class CreateFoodItemForm extends React.Component {
             labels: labels
         };
 
-        console.log("Creating new food item: ")
-        console.log(newFoodItem);
+        dataClient.createFoodItem(newFoodItem, 
 
-        this.graphqlClient.request(MUTATION_CREATE_FOOD_ITEM, newFoodItem)
-        .then((data) => {
-            console.log(data);
-            if (!data.addFoodItem) {
-                console.log("Whoops, no food item was created!");
-            } else {
-                console.log("Successfully created food item!");
-                this.props.handleCreateFoodItem(data.addFoodItem, undefined);
-            }
-        })
-        .catch((err) => {
-            console.error(err);
-            this.props.handleCreateFoodItem(undefined, err);
-        });
+            // Success callback
+            (createdFoodItem) => {
+                this.props.handleCreateFoodItem(createdFoodItem, undefined);
+            }, 
+            
+            // Error callback
+            (err) => {
+                console.error(err);
+                this.props.handleCreateFoodItem(undefined, err);
+            });
     }
 
     render() {
