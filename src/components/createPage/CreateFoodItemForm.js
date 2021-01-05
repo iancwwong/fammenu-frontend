@@ -1,5 +1,4 @@
 import React from 'react';
-import { GraphQLClient, gql } from 'graphql-request';
 const dataClient = require('../../utils/DataClient');
 
 // -------------------------
