@@ -10,7 +10,14 @@ export default class SearchPage extends React.Component {
     };
 
     handleSearchOptions = (results)  => {
+        // Alphabetical order by default
+        results.sort(this.nameComparison);
         this.setState(() => ({ foundFoodItems: results }));
+    }
+
+    // Sorting by alphabetical order
+    nameComparison = (foodItemA, foodItemB) => {
+        return foodItemA.name > foodItemB.name;
     }
 
     render() {
