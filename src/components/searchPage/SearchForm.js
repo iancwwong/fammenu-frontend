@@ -1,11 +1,12 @@
 // Main goal is to execute search query, obtain and change food items in state
 import React from 'react';
+import { GraphQLClient, gql } from 'graphql-request';
 
 // ----------------------------------
 // GLOBAL VARIABLES
 // ----------------------------------
 // GraphQL query to search for food items by generic term
-const QUERY_GENERIC_SEARCH = `
+const QUERY_GENERIC_SEARCH = gql `
     query SearchFoodItemsByGenericTerm($searchTerm: String!) {
         searchFoodItemsByGenericTerm(searchTerm:$searchTerm) {
             id
@@ -24,43 +25,36 @@ const BACKEND_URL = 'http://127.0.0.1:3000/graphql';
 // ----------------------------------
 export default class SearchForm extends React.Component {
 
-    // Todo: Support multiple search modes
+    graphqlClient = new GraphQLClient(BACKEND_URL);
 
+    // Todo: Support multiple search modes
     searchByGenericTerm = (eventObj) => {
         
         eventObj.preventDefault();
 
         // ToDo: Sanitise check searchTerm
         const searchTerm = eventObj.target.elements.searchTerm.value;
-        console.log("Searhing with search term: " + searchTerm);
+        console.log("Searching with search term: " + searchTerm);
 
-        fetch(BACKEND_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                query: QUERY_GENERIC_SEARCH,
-                variables: {searchTerm}
-            })
-        })
-        .then((response) => {
-            if (!response.ok) {
-                console.error(response);
+        const queryVars = {
+            searchTerm: searchTerm
+        }
+        this.graphqlClient.request(QUERY_GENERIC_SEARCH, queryVars)
+        .then((data) => {
+            try {
+                let searchResults = data.searchFoodItemsByGenericTerm;
+
+                // Handle no data return
+                if (!searchResults) {
+                    searchResults = [];
+                }
+                this.props.handleSearchOptions(searchResults);
+            } catch (err) {
+                console.error(err);
             }
-            return response.json();
-        })
-        .then(data => {
-            let searchResults = data.data.searchFoodItemsByGenericTerm;
-            
-            // Handle no data return
-            if (!searchResults) {
-                searchResults = [];
-            }
-            this.props.handleSearchOptions(searchResults);
         })
         .catch((err) => {
+            console.error("Error: Could not obtain data from Fammenu-backend!");
             console.error(err);
         });
 
