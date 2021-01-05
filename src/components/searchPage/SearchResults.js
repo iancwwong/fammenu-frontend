@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodItem from './FoodItem';
+import FoodItemResult from './FoodItemResult';
 
 const SearchResults = (props) => (
     <div>
@@ -11,7 +11,7 @@ const SearchResults = (props) => (
         }
         {props.foundFoodItems.map((foodItem) => 
         (
-            <FoodItem foodItem={foodItem} />
+            <FoodItemResult foodItem={foodItem} />
         ))}
     </div>
 );

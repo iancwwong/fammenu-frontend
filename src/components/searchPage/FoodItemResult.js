@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const FoodItem = (props) => (
+const FoodItemResult = (props) => (
     <div>
         <ul>
             <li key={props.foodItem.id + props.foodItem.name}>
@@ -14,4 +14,4 @@ const FoodItem = (props) => (
     </div>
 );
 
-export default FoodItem;
+export default FoodItemResult;
