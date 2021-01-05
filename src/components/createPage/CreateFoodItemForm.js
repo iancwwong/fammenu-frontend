@@ -5,6 +5,10 @@ const dataClient = require('../../utils/DataClient');
 // -------------------------
 export default class CreateFoodItemForm extends React.Component {
 
+    state = {
+        readyToCreate: false
+    }
+
     handleCreateFoodItem = (eventObj) => {
 
         eventObj.preventDefault();
@@ -37,26 +41,35 @@ export default class CreateFoodItemForm extends React.Component {
             });
     }
 
+    checkReadyToCreate = () => {
+        const isNameEmpty = document.getElementById('nameField').value.length == 0;
+        const isCuisineEmpty = document.getElementById('cuisineField').value.length == 0;
+        // No need to check for labels
+        this.setState(() => ({
+            readyToCreate: (!isNameEmpty) && (!isCuisineEmpty)
+        }));
+    }
+
     render() {
         return (
             <div>
                 <form onSubmit={this.handleCreateFoodItem}>
                     <label>
                         Name:
-                        <input type="text" name="name" />
+                        <input type="text" id="nameField" name="name" onChange={this.checkReadyToCreate}/>
                     </label>
                     <br></br>
                     <label>
                         Cuisine:
-                        <input type="text" name="cuisine" />
+                        <input type="text" id="cuisineField" name="cuisine" onChange={this.checkReadyToCreate}/>
                     </label>
                     <br></br>
                     <label>
                         Labels:
-                        <input type="text" name="labels" />
+                        <input type="text" id="labelsField" name="labels"/>
                     </label>
                     <br></br>
-                    <button>Create</button>
+                    <button disabled={!this.state.readyToCreate}>Create</button>
                 </form>
             </div>
         );
