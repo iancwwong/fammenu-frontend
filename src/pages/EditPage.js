@@ -15,7 +15,7 @@ export default class EditPage extends React.Component {
             foodItem: foodItemObj
         }));
     }
-
+    
     componentDidMount() {
         console.log("Created Edit page component! Loading in the food item obj with id: " + this.state.foodItemId);
         dataClient.getFoodItemById(this.state.foodItemId, this.handleSetFoodItemObj, (err) => console.error(err));
