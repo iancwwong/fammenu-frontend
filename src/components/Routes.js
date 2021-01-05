@@ -9,6 +9,7 @@ import {
 import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
 import CreatePage from '../pages/CreatePage';
+import EditPage from '../pages/EditPage';
 
 /* A <Switch> looks through its children <Route>s and
     renders the FIRST one that matches the current URL. */
@@ -17,7 +18,8 @@ const Routes = () => (
         <Switch>
             <Route path="/search" component={SearchPage} />
             <Route path="/create" component={CreatePage} />
-            <Route path="/" component={HomePage} />
+            <Route path="/edit/:foodItemId" component={EditPage} />
+            <Route exact={true} path="/" component={HomePage} />
         </Switch>
     </Router>
 );
