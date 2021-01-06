@@ -22,7 +22,7 @@ const VEGETABLE_AVATAR_PATH = './static/images/avatars/cabbage.svg';
 const WET_AVATAR_PATH = './static/images/avatars/drop.svg';
 const SOUP_AVATAR_PATH = './static/images/avatars/soup.svg';
 const SET_MEAL_AVATAR_PATH = './static/images/avatars/dinner.svg';
-const UNKNOWN_AVATAR_PATH = './static/images/avatars/question.svg';
+const FISH_AVATAR_PATH = './static/images/avatars/fish.svg'
 
 const getFoodItemAvatars = (foodItem) => (
     <Grid
@@ -56,6 +56,10 @@ const determineFoodItemAvatar = (label) => {
 
         case 'soup':
             avatarSrc = SOUP_AVATAR_PATH;
+            break;
+
+        case 'seafood':
+            avatarSrc = FISH_AVATAR_PATH;
             break;
 
         default:
