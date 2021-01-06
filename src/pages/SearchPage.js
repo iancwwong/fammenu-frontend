@@ -7,18 +7,23 @@ import Divider from '@material-ui/core/Divider';
 export default class SearchPage extends React.Component {
 
     state = {
-        foundFoodItems: []
+        foundFoodItems: [],
+        foodItemToDelete: undefined
     };
 
-    handleSearchOptions = (results)  => {
+    handleSearchFoodItems = (results)  => {
         // Alphabetical order by default
         results.sort(this.nameComparison);
         this.setState(() => ({ foundFoodItems: results }));
     }
 
+    handleDeleteFoodItem = (foodItem) => {
+        console.log("Attempting to delete food item: " + foodItem.id);
+    }
+
     // Sorting by alphabetical order
     nameComparison = (foodItemA, foodItemB) => {
-        return foodItemA.name > foodItemB.name;
+        return foodItemA.name.localeCompare(foodItemB.name);
     }
 
     render() {
@@ -26,10 +31,15 @@ export default class SearchPage extends React.Component {
             <div>
                 <Navbar />
                 <h2>Food Items Search Page</h2> 
-                <SearchForm handleSearchOptions={this.handleSearchOptions}/>
+                <SearchForm 
+                    handleSearchFoodItems={this.handleSearchFoodItems} 
+                />
                 <br />
                 <Divider />
-                <SearchResults foundFoodItems={this.state.foundFoodItems}/>
+                <SearchResults 
+                    foundFoodItems={this.state.foundFoodItems}
+                    handleDeleteFoodItem={this.handleDeleteFoodItem}
+                />
             </div>
         )
     }

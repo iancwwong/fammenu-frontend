@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const SearchResults = (props) => (
     <div>
@@ -22,6 +25,12 @@ const SearchResults = (props) => (
                     (
                         <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
                             <FoodItemResult foodItem={foodItem} />
+
+                            <ListItemSecondaryAction onClick={(foodItem) => props.handleDeleteFoodItem(foodItem)}>
+                                <IconButton edge="end" aria-label="delete">
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItemSecondaryAction>
                         </ListItem>
                     ))}
                 </List>

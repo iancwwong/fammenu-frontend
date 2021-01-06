@@ -12,7 +12,7 @@ export default class SearchForm extends React.Component {
         // ToDo: Sanitise check searchTerm
         const searchTerm = eventObj.target.elements.searchTerm.value.trim();
 
-        dataClient.searchFoodItemsByGenericTerm(searchTerm, this.props.handleSearchOptions, (err) => console.error(err));
+        dataClient.searchFoodItemsByGenericTerm(searchTerm, this.props.handleSearchFoodItems, (err) => console.error(err));
 
         // Empty out the text field
         eventObj.target.elements.searchTerm.value = "";
