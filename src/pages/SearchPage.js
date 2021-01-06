@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import SearchForm from '../components/searchPage/SearchForm';
 import SearchResults from '../components/searchPage/SearchResults';
+import Divider from '@material-ui/core/Divider';
 
 export default class SearchPage extends React.Component {
 
@@ -26,7 +27,8 @@ export default class SearchPage extends React.Component {
                 <Navbar />
                 <h2>Food Items Search Page</h2> 
                 <SearchForm handleSearchOptions={this.handleSearchOptions}/>
-                <hr />
+                <br />
+                <Divider />
                 <SearchResults foundFoodItems={this.state.foundFoodItems}/>
             </div>
         )
