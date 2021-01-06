@@ -1,16 +1,28 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
 
 const FoodItemResult = (props) => (
     <div>
         <ListItemAvatar>
-            {getFoodItemAvatars(props.foodItem)}
+            <Grid
+                container
+                direction="row"
+            >
+                {props.foodItem.labels.map((label) => determineFoodItemAvatar(label))}
+            </Grid>
         </ListItemAvatar>
 
         <ListItemText primary={props.foodItem.name}/>
+
+        <Grid direction="row">
+            {props.foodItem.labels.map(
+                (label) => getFoodItemLabelChip(label)
+            )}
+        </Grid>
     </div>
 );
 export default FoodItemResult;
@@ -23,15 +35,6 @@ const WET_AVATAR_PATH = './static/images/avatars/drop.svg';
 const SOUP_AVATAR_PATH = './static/images/avatars/soup.svg';
 const SET_MEAL_AVATAR_PATH = './static/images/avatars/dinner.svg';
 const FISH_AVATAR_PATH = './static/images/avatars/fish.svg'
-
-const getFoodItemAvatars = (foodItem) => (
-    <Grid
-        container
-        direction="row"
-    >
-        {foodItem.labels.map((label) => determineFoodItemAvatar(label))}
-    </Grid>
-);
 
 const determineFoodItemAvatar = (label) => {
 
@@ -74,3 +77,45 @@ const determineFoodItemAvatar = (label) => {
     );
 }
 
+const getFoodItemLabelChip = (label) => {
+    let color = "";
+
+    switch(label) {
+
+        case 'vegetable':
+            color = "ForestGreen";
+            break;
+
+        case 'meat':
+            color = "crimson";
+            break;
+
+        case 'set meal':
+            color = "blue";
+            break;
+        
+        case 'wet':
+            color = "teal";
+            break;
+
+        case 'soup':
+            color = "violet";
+            break;
+
+        case 'seafood':
+            color = "aqua";
+            break;
+
+        default:
+            return;
+    }
+    
+    return (
+        <Chip 
+            size="small" 
+            label={label} 
+            style={{color:color}}
+            variant='outlined'
+        />
+    );
+};
