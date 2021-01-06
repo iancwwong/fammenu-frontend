@@ -25,7 +25,7 @@ export default class EditPage extends React.Component {
         return (
             <div>
                 <Navbar />
-                <h2>Edit Food Item: {this.state.foodItemId}</h2>
+                <h2>Edit Food Item</h2>
                 {this.state.foodItem && 
                     <EditFoodItemForm 
                         foodItem={this.state.foodItem}

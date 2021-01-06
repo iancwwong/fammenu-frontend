@@ -3,6 +3,10 @@ const dataClient = require('../../utils/DataClient');
 
 export default class EditFoodItemForm extends React.Component {
     
+    state = {
+        updatedFoodItemSuccessfully: false
+    }
+
     handleUpdateFoodItem = (eventObj) => {
         eventObj.preventDefault();
 
@@ -23,7 +27,22 @@ export default class EditFoodItemForm extends React.Component {
 
         console.log("Updating food item: ");
         console.log(foodItemToUpdate);
-        dataClient.updateFoodItemById(foodItemToUpdate, this.props.handleSetFoodItemObj, (err) => console.log(err));
+        dataClient.updateFoodItemById(foodItemToUpdate, 
+            
+            (updatedFoodItem) => {
+                this.props.handleSetFoodItemObj(updatedFoodItem);
+                this.setState(() => ({
+                    updatedFoodItemSuccessfully: true
+                }));
+            }, 
+            
+            (err) => {
+                console.log(err)
+                this.setState(() => ({
+                    updatedFoodItemSuccessfully: false
+                }));
+            }
+        );
     }
 
     render() {
@@ -56,6 +75,8 @@ export default class EditFoodItemForm extends React.Component {
                     <br></br>
                     <button>Update</button>
                 </form>
+
+                {this.state.updatedFoodItemSuccessfully && <p>Updated successfully!</p>}
             </div>
         );
     }
