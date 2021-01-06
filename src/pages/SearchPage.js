@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import SearchForm from '../components/searchPage/SearchForm';
 import SearchResults from '../components/searchPage/SearchResults';
+import DeleteFoodItemDialog from '../components/searchPage/DeleteFoodItemDialog';
 import Divider from '@material-ui/core/Divider';
 
 export default class SearchPage extends React.Component {
@@ -19,6 +20,15 @@ export default class SearchPage extends React.Component {
 
     handleDeleteFoodItem = (foodItem) => {
         console.log("Attempting to delete food item: " + foodItem.id);
+        this.setState(() => ({
+            foodItemToDelete: foodItem
+        }));
+    }
+
+    resetFoodItemToDelete = () => {
+        this.setState(() => ({
+            foodItemToDelete: undefined
+        }));
     }
 
     // Sorting by alphabetical order
@@ -40,6 +50,13 @@ export default class SearchPage extends React.Component {
                     foundFoodItems={this.state.foundFoodItems}
                     handleDeleteFoodItem={this.handleDeleteFoodItem}
                 />
+                
+                {this.state.foodItemToDelete && 
+                    <DeleteFoodItemDialog 
+                        foodItemToDelete={this.state.foodItemToDelete}
+                        resetFoodItemToDelete={this.resetFoodItemToDelete}
+                    />}
+
             </div>
         )
     }
