@@ -14,15 +14,13 @@ const SearchResults = (props) => (
         }
 
         <List>
-        {props.foundFoodItems.map((foodItem) => 
-        (
-            <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
-                <FoodItemResult foodItem={foodItem} />
-            </ListItem>
-        ))}
+            {props.foundFoodItems.map((foodItem) => 
+            (
+                <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
+                    <FoodItemResult foodItem={foodItem} />
+                </ListItem>
+            ))}
         </List>
-
-
     </div>
 );
 
