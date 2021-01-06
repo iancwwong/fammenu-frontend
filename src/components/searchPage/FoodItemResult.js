@@ -59,7 +59,7 @@ const determineFoodItemAvatar = (label) => {
             break;
 
         default:
-            avatarSrc = UNKNOWN_AVATAR_PATH;
+            return;
     }
 
     return (
