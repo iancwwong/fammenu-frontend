@@ -6,7 +6,7 @@ import DeleteFoodItemDialog from '../components/searchPage/DeleteFoodItemDialog'
 import EditFoodItemDialog from '../components/searchPage/EditFoodItemDialog';
 import Divider from '@material-ui/core/Divider';
 
-export default class SearchPage extends React.Component {
+export default class ViewFoodItems extends React.Component {
 
     state = {
         foundFoodItems: [],

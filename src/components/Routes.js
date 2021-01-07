@@ -7,7 +7,7 @@ import {
 
 // Pages
 import HomePage from '../pages/HomePage';
-import SearchPage from '../pages/SearchPage';
+import ViewFoodItems from '../pages/ViewFoodItems';
 import CreatePage from '../pages/CreatePage';
 import EditPage from '../pages/EditPage';
 
@@ -16,7 +16,7 @@ import EditPage from '../pages/EditPage';
 const Routes = () => (
     <Router>
         <Switch>
-            <Route path="/search" component={SearchPage} />
+            <Route path="/search" component={ViewFoodItems} />
             <Route path="/create" component={CreatePage} />
             <Route path="/edit/:foodItemId" component={EditPage} />
             <Route exact={true} path="/" component={HomePage} />
