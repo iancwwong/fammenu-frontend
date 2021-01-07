@@ -1,5 +1,8 @@
 // Main goal is to execute search query, obtain and change food items in state
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 const dataClient = require('../../utils/DataClient');
 
 export default class SearchForm extends React.Component {
@@ -22,8 +25,13 @@ export default class SearchForm extends React.Component {
         return (
             <div>
                 <form onSubmit={this.searchByGenericTerm}>
-                    <input type="text" name="searchTerm"></input>
-                    <button type="submit">Search</button>
+                    <TextField 
+                        id="searchTerm"
+                        placeholder="e.g set meal"
+                    />
+                    <IconButton type="submit">
+                        <SearchIcon />
+                    </IconButton>
                 </form>
             </div>
         );
