@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import SearchForm from '../components/searchPage/SearchForm';
-import SearchResults from '../components/searchPage/SearchResults';
-import DeleteFoodItemDialog from '../components/searchPage/DeleteFoodItemDialog';
-import EditFoodItemDialog from '../components/searchPage/EditFoodItemDialog';
+import SearchForm from '../components/viewFoodItemsPage/SearchForm';
+import SearchResults from '../components/viewFoodItemsPage/SearchResults';
+import DeleteFoodItemDialog from '../components/viewFoodItemsPage/DeleteFoodItemDialog';
+import EditFoodItemDialog from '../components/viewFoodItemsPage/EditFoodItemDialog';
 import Divider from '@material-ui/core/Divider';
 
 export default class ViewFoodItems extends React.Component {
