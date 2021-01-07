@@ -5,13 +5,15 @@ import SearchResults from '../components/viewFoodItemsPage/SearchResults';
 import DeleteFoodItemDialog from '../components/viewFoodItemsPage/DeleteFoodItemDialog';
 import EditFoodItemDialog from '../components/viewFoodItemsPage/EditFoodItemDialog';
 import Divider from '@material-ui/core/Divider';
+import CreateFoodItemDialog from '../components/viewFoodItemsPage/CreateFoodItemDialog';
 
 export default class ViewFoodItems extends React.Component {
 
     state = {
         foundFoodItems: [],
         foodItemToDelete: undefined,
-        foodItemToEdit: undefined
+        foodItemToEdit: undefined,
+        creatingFoodItem: false
     };
 
     handleSearchFoodItems = (results)  => {
@@ -59,6 +61,10 @@ export default class ViewFoodItems extends React.Component {
         }));
     }
 
+    resetCreatingFoodItem = () => {
+        this.setState(() => ({ creatingFoodItem: false }))
+    }
+
     // Sorting by alphabetical order
     nameComparison = (foodItemA, foodItemB) => {
         return foodItemA.name.localeCompare(foodItemB.name);
@@ -73,14 +79,28 @@ export default class ViewFoodItems extends React.Component {
                     handleSearchFoodItems={this.handleSearchFoodItems} 
                 />
                 <br />
+
+                <button onClick={() => this.setState(() => ({ creatingFoodItem: true }))}>
+                    Create
+                </button>
+
+                <br />
                 <Divider />
                 <SearchResults 
                     foundFoodItems={this.state.foundFoodItems}
                     handleDeleteFoodItem={this.handleDeleteFoodItem}
                     handleEditFoodItem={this.handleEditFoodItem}
                 />
+
+                {
+                    this.state.creatingFoodItem &&
+                    <CreateFoodItemDialog
+                        resetFoodItemToCreate={this.resetCreatingFoodItem}
+                    />
+                }
                 
-                {this.state.foodItemToDelete && 
+                {
+                    this.state.foodItemToDelete && 
                     <DeleteFoodItemDialog 
                         foodItemToDelete={this.state.foodItemToDelete}
                         resetFoodItemToDelete={this.resetFoodItemToDelete}
