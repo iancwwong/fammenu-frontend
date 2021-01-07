@@ -23,7 +23,8 @@ const SearchResults = (props) => (
                 <List>
                     {props.foundFoodItems.map((foodItem) => 
                     (
-                        <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
+                        // <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
+                        <ListItem button onClick={() => props.handleEditFoodItem(foodItem)}>
                             <FoodItemResult foodItem={foodItem} />  
                             <ListItemSecondaryAction onClick={() => props.handleDeleteFoodItem(foodItem)}>
                                 <IconButton edge="end" aria-label="delete">
