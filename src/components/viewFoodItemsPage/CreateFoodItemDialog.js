@@ -11,8 +11,8 @@ const dataClient = require('../../utils/DataClient');
 export default class CreateFoodItemDialog extends React.Component {
 
     state = {
-        nameError: undefined,
-        cuisineError: undefined,
+        nameError: "Please supply",
+        cuisineError: "Please supply",
         labelsError: undefined
     }
 
@@ -63,14 +63,11 @@ export default class CreateFoodItemDialog extends React.Component {
         };
         console.log("Creating food item: ");
         console.log(foodItemToCreate);
-                                    
-        // dataClient.createFoodItem(
-        //     foodItemToCreate,
-        //     this.props.resetFoodItemToEditAfterSuccessfulEdit,
-
-        //     // Error callback
-        //     (err) => console.error(err));
-        this.props.resetFoodItemToCreate();
+        dataClient.createFoodItem(
+            foodItemToCreate,
+            this.props.handleCreateFoodItem,
+            (err) => console.log(err)
+        );
     }
 
     render() {

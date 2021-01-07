@@ -61,6 +61,13 @@ export default class ViewFoodItems extends React.Component {
         }));
     }
 
+    handleCreateFoodItem = (createdFoodItem) => {
+        this.setState(() => ({
+            foundFoodItems: [createdFoodItem],
+            creatingFoodItem: false
+        }));
+    }
+
     resetCreatingFoodItem = () => {
         this.setState(() => ({ creatingFoodItem: false }))
     }
@@ -96,6 +103,7 @@ export default class ViewFoodItems extends React.Component {
                     this.state.creatingFoodItem &&
                     <CreateFoodItemDialog
                         resetFoodItemToCreate={this.resetCreatingFoodItem}
+                        handleCreateFoodItem={this.handleCreateFoodItem}
                     />
                 }
                 
