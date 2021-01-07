@@ -53,8 +53,10 @@ export default class SearchPage extends React.Component {
     }
 
     resetFoodItemToEditAfterSuccessfulEdit = (editedFoodItem) => {
-        // Todo: Refresh the list of results
-        this.resetFoodItemToEdit();
+        this.setState(() => ({
+            foundFoodItems: [editedFoodItem],
+            foodItemToEdit: undefined
+        }));
     }
 
     // Sorting by alphabetical order
