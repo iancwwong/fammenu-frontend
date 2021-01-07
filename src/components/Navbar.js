@@ -13,7 +13,7 @@ const Navbar = () => (
             </Button>
 
             <Button color="primary" component={Link} to="/search">
-                <SearchIcon />Search
+                <SearchIcon />View
             </Button>
 
             <Button color="primary" component={Link} to="/create">

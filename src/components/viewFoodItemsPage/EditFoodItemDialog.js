@@ -101,7 +101,6 @@ export default class EditFoodItemDialog extends React.Component {
                     />
         
                     <TextField
-                        autoFocus
                         id="editCuisine"
                         label="Cuisine"
                         required
@@ -114,7 +113,6 @@ export default class EditFoodItemDialog extends React.Component {
                     />
         
                     <TextField
-                        autoFocus
                         id="editLabels"
                         label="Labels"
                         type="text"

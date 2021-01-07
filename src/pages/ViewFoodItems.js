@@ -68,7 +68,7 @@ export default class ViewFoodItems extends React.Component {
         return (
             <div>
                 <Navbar />
-                <h2>Food Items Search Page</h2> 
+                <h2>Food Items Viewing Page</h2> 
                 <SearchForm 
                     handleSearchFoodItems={this.handleSearchFoodItems} 
                 />
