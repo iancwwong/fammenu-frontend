@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const Navbar = () => (
     <div>
@@ -12,12 +11,8 @@ const Navbar = () => (
                 <HomeIcon /> Home
             </Button>
 
-            <Button color="primary" component={Link} to="/search">
+            <Button color="primary" component={Link} to="/view">
                 <SearchIcon />View
-            </Button>
-
-            <Button color="primary" component={Link} to="/create">
-                <AddCircleIcon />Create
             </Button>
         </nav>
     </div>
