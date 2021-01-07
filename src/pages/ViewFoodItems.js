@@ -9,7 +9,6 @@ import CreateFoodItemDialog from '../components/viewFoodItemsPage/CreateFoodItem
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 
 export default class ViewFoodItems extends React.Component {

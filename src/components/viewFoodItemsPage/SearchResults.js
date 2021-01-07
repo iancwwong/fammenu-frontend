@@ -19,7 +19,7 @@ const SearchResults = (props) => (
 
         {
             (props.foundFoodItems && props.foundFoodItems.length > 0) &&
-            <Paper style={{maxHeight: 300, overflow: 'auto'}}>
+            <Paper style={{maxHeight: 400, overflow: 'auto'}}>
                 <List>
                     {props.foundFoodItems.map((foodItem) => 
                     (
