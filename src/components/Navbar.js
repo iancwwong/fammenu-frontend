@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
-import SearchIcon from '@material-ui/icons/Search';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const Navbar = () => (
     <div>
@@ -12,7 +12,7 @@ const Navbar = () => (
             </Button>
 
             <Button color="primary" component={Link} to="/view">
-                <SearchIcon />View
+                <VisibilityIcon />View
             </Button>
         </nav>
     </div>
