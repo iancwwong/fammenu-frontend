@@ -19,7 +19,6 @@ export default class SearchPage extends React.Component {
     }
 
     handleDeleteFoodItem = (foodItem) => {
-        console.log("Attempting to delete food item: " + foodItem.id);
         this.setState(() => ({
             foodItemToDelete: foodItem
         }));
@@ -28,6 +27,14 @@ export default class SearchPage extends React.Component {
     resetFoodItemToDelete = () => {
         this.setState(() => ({
             foodItemToDelete: undefined
+        }));
+    }
+
+    // Refresh of list after successful deletion
+    resetFoodItemToDeleteAfterSuccessfulDeletion = (deletedFoodItem) => {
+        this.setState((prevState) => ({
+            foodItemToDelete: undefined,
+            foundFoodItems: prevState.foundFoodItems.filter((foodItem) => foodItem.id !== deletedFoodItem.id)
         }));
     }
 
@@ -55,6 +62,7 @@ export default class SearchPage extends React.Component {
                     <DeleteFoodItemDialog 
                         foodItemToDelete={this.state.foodItemToDelete}
                         resetFoodItemToDelete={this.resetFoodItemToDelete}
+                        resetFoodItemToDeleteAfterSuccessfulDeletion={this.resetFoodItemToDeleteAfterSuccessfulDeletion}
                     />}
 
             </div>

@@ -35,6 +35,17 @@ const MUTATION_CREATE_FOOD_ITEM = gql `
     }
 `;
 
+const MUTATION_DELETE_FOOD_ITEM = gql `
+    mutation DeleteFoodItem($id:ID!) {
+        deleteFoodItem(id:$id) {
+        id
+        name
+        cuisine
+        labels
+        }
+    }
+`;
+
 const QUERY_SEARCH_BY_ID = gql `
     query SearchFoodItemsById($id:ID!) {
         getFoodItemById(id:$id) {
@@ -112,9 +123,23 @@ const createFoodItem = (foodItemToCreate, callback, errorCallback) => {
     });
 }
 
+const deleteFoodItem = (foodItemToDelete, callback, errorCallback) => {
+    console.log("Deleting food item: " + foodItemToDelete.id);
+    GraphqlClient.request(MUTATION_DELETE_FOOD_ITEM, {id: foodItemToDelete.id})
+    .then((data) => {
+        if (data.deleteFoodItem !== null) {             // Graphql returns 'null' for this attribute if successful deletion
+            throw new Error("No food item was deleted");
+        }
+        callback(foodItemToDelete);
+    }).catch((err) => {
+        errorCallback(err);
+    });
+}
+
 module.exports = {
     getFoodItemById,
     searchFoodItemsByGenericTerm,
     updateFoodItemById,
-    createFoodItem
+    createFoodItem,
+    deleteFoodItem
 };
