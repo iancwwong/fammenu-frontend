@@ -4,8 +4,13 @@ import SearchForm from '../components/viewFoodItemsPage/SearchForm';
 import SearchResults from '../components/viewFoodItemsPage/SearchResults';
 import DeleteFoodItemDialog from '../components/viewFoodItemsPage/DeleteFoodItemDialog';
 import EditFoodItemDialog from '../components/viewFoodItemsPage/EditFoodItemDialog';
-import Divider from '@material-ui/core/Divider';
 import CreateFoodItemDialog from '../components/viewFoodItemsPage/CreateFoodItemDialog';
+
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 
 export default class ViewFoodItems extends React.Component {
 
@@ -82,15 +87,20 @@ export default class ViewFoodItems extends React.Component {
             <div>
                 <Navbar />
                 <h2>Food Items Viewing Page</h2> 
-                <SearchForm 
-                    handleSearchFoodItems={this.handleSearchFoodItems} 
-                />
-                <br />
 
-                <button onClick={() => this.setState(() => ({ creatingFoodItem: true }))}>
-                    Create
-                </button>
-
+                <Grid container direction="row">
+                    <SearchForm 
+                        handleSearchFoodItems={this.handleSearchFoodItems} 
+                    />
+                    <Fab 
+                        size="small"
+                        color="primary" aria-label="add" 
+                        onClick={() => this.setState(() => ({ creatingFoodItem: true }))}
+                    >
+                        <AddIcon />
+                    </Fab>
+                </Grid>
+                
                 <br />
                 <Divider />
                 <SearchResults 
