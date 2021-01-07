@@ -3,7 +3,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -83,10 +82,6 @@ export default class EditFoodItemDialog extends React.Component {
                 <DialogTitle>Edit Food Item</DialogTitle>
         
                 <DialogContent>
-                    <DialogContentText>
-                        Details for '{this.props.foodItemToEdit.name}'...
-                    </DialogContentText>
-        
                     <TextField
                         autoFocus
                         id="editName"
