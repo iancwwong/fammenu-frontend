@@ -116,7 +116,7 @@ export default class CreateFoodItemDialog extends React.Component {
         
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.resetFoodItemToCreate} color="default">
+                    <Button onClick={this.props.resetCreatingFoodItem} color="default">
                         Cancel
                     </Button>
                     <Button 

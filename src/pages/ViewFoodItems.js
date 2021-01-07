@@ -73,7 +73,7 @@ export default class ViewFoodItems extends React.Component {
     }
 
     resetCreatingFoodItem = () => {
-        this.setState(() => ({ creatingFoodItem: false }))
+        this.setState(() => ({ creatingFoodItem: false }));
     }
 
     // Sorting by alphabetical order
@@ -111,7 +111,7 @@ export default class ViewFoodItems extends React.Component {
                 {
                     this.state.creatingFoodItem &&
                     <CreateFoodItemDialog
-                        resetFoodItemToCreate={this.resetCreatingFoodItem}
+                        resetCreatingFoodItem={this.resetCreatingFoodItem}
                         handleCreateFoodItem={this.handleCreateFoodItem}
                     />
                 }
