@@ -4,7 +4,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import CreateFoodItemForm from './createFoodItemDialog/CreateFoodItemForm';
+import CreateEditFoodItemForm from './createFoodItemDialog/CreateEditFoodItemForm';
 
 const dataClient = require('../../utils/DataClient');
 
@@ -19,11 +19,7 @@ export default class CreateFoodItemDialog extends React.Component {
     handleValidateCreateForm = () => {
         // Get values of update fields
         let name = document.getElementById('createName').value.trim();
-        let cuisine = document.getElementById('createCuisine').value.trim();
-        let labels = document.getElementById('createLabels').value
-                        .trim().split(";")
-                        .map((label) => label.trim())
-                        .filter((label) => label);          // Remove empty labels
+        let cuisine = document.getElementById('createCuisine').value.trim();    // Todo: Convert to lowercase
 
         // Validate fields
         if (!name) {
@@ -47,22 +43,22 @@ export default class CreateFoodItemDialog extends React.Component {
         }
     }
 
+    labelChips = [];
+    handleLabelChips = (chips) => {
+        // Todo: Sanitise chips??
+        this.labelChips = chips;
+    }
+
     handleCreateFoodItem = () => {
         // Get values of update fields
         let name = document.getElementById('createName').value.trim();
         let cuisine = document.getElementById('createCuisine').value.trim();
-        let labels = document.getElementById('createLabels').value
-                        .trim().split(";")
-                        .map((label) => label.trim())
-                        .filter((label) => label);          // Remove empty labels
 
         const foodItemToCreate = {
             name: name,
             cuisine: cuisine,
-            labels: labels
+            labels: this.labelChips
         };
-        console.log("Creating food item: ");
-        console.log(foodItemToCreate);
         dataClient.createFoodItem(
             foodItemToCreate,
             this.props.handleCreateFoodItem,
@@ -80,11 +76,13 @@ export default class CreateFoodItemDialog extends React.Component {
         
                 <DialogContent>
 
-                    <CreateFoodItemForm 
+                    <CreateEditFoodItemForm 
                         nameError={this.state.nameError}
                         cuisineError={this.state.cuisineError}
                         labelsError={this.state.labelsError}
                         handleValidateCreateForm={this.handleValidateCreateForm}
+                        handleOnChangeName={this.handleOnChangeName}
+                        handleLabelChips={this.handleLabelChips}
                     />
         
                 </DialogContent>
@@ -94,9 +92,9 @@ export default class CreateFoodItemDialog extends React.Component {
                     </Button>
                     <Button 
                         disabled={
-                            this.state.nameError ||
+                            (this.state.nameError ||
                             this.state.cuisineError ||
-                            this.state.labelsError}
+                            this.state.labelsError)}
                         onClick={() => this.handleCreateFoodItem()}
                         color="primary"
                     >

@@ -1,8 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import CreateFoodItemDialog from '../CreateFoodItemDialog';
+import ChipInput from 'material-ui-chip-input';
 
-const CreateFoodItemForm = (props) => (
+const CreateEditFoodItemForm = (props) => (
     <div>
         <TextField
             autoFocus
@@ -29,15 +29,18 @@ const CreateFoodItemForm = (props) => (
             onChange={props.handleValidateCreateForm}
         />
 
-        <TextField
+        <ChipInput 
             id="createLabels"
             label="Labels"
-            type="text"
-            fullWidth
-            placeholder="e.g meat; assortment"
-            onChange={props.handleValidateUpdateForm}
+            onChange={(chips) => props.handleLabelChips(chips)}
+            placeholder="e.g meat; vegetable"
+            newChipKeys={['Enter', ';']}
         />
     </div>
 );
 
-export default CreateFoodItemForm;
+const handleChangeChips = (chips) => {
+    console.log(chips);
+}
+
+export default CreateEditFoodItemForm;
