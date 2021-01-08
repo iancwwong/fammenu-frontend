@@ -21,6 +21,10 @@ export default class SearchForm extends React.Component {
         eventObj.target.elements.searchTerm.value = "";
     }
 
+    componentDidMount () {
+        dataClient.searchFoodItemsByGenericTerm("", this.props.handleSearchFoodItems, (err) => console.error(err));
+    }
+
     render() {
         return (
             <div>
