@@ -4,7 +4,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import CreateFoodItemForm from './createFoodItemDialog/CreateFoodItemForm';
 
 const dataClient = require('../../utils/DataClient');
 
@@ -79,39 +79,12 @@ export default class CreateFoodItemDialog extends React.Component {
                 <DialogTitle>Create Food Item</DialogTitle>
         
                 <DialogContent>
-        
-                    <TextField
-                        autoFocus
-                        id="createName"
-                        label="Name"
-                        required
-                        error={!!this.state.nameError}
-                        helperText={this.state.nameError}
-                        type="text"
-                        fullWidth
-                        placeholder="e.g Boiled Vegetables"
-                        onChange={this.handleValidateCreateForm}
-                    />
-        
-                    <TextField
-                        id="createCuisine"
-                        label="Cuisine"
-                        required
-                        error={!!this.state.cuisineError}
-                        helperText={this.state.cuisineError}
-                        type="text"
-                        fullWidth
-                        placeholder="e.g chinese"
-                        onChange={this.handleValidateCreateForm}
-                    />
-        
-                    <TextField
-                        id="createLabels"
-                        label="Labels"
-                        type="text"
-                        fullWidth
-                        placeholder="e.g meat; assortment"
-                        onChange={this.handleValidateUpdateForm}
+
+                    <CreateFoodItemForm 
+                        nameError={this.state.nameError}
+                        cuisineError={this.state.cuisineError}
+                        labelsError={this.state.labelsError}
+                        handleValidateCreateForm={this.handleValidateCreateForm}
                     />
         
                 </DialogContent>
