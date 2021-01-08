@@ -35,6 +35,7 @@ const WET_AVATAR_PATH = './static/images/avatars/drop.svg';
 const SOUP_AVATAR_PATH = './static/images/avatars/soup.svg';
 const SET_MEAL_AVATAR_PATH = './static/images/avatars/dinner.svg';
 const FISH_AVATAR_PATH = './static/images/avatars/fish.svg'
+const CAKE_AVATAR_PATH = './static/images/avatars/dessert.svg'
 
 const determineFoodItemAvatar = (label) => {
 
@@ -63,6 +64,10 @@ const determineFoodItemAvatar = (label) => {
 
         case 'seafood':
             avatarSrc = FISH_AVATAR_PATH;
+            break;
+
+        case 'dessert':
+            avatarSrc = CAKE_AVATAR_PATH;
             break;
 
         default:
