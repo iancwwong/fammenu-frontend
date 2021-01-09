@@ -24,7 +24,7 @@ const SearchResults = (props) => (
                     {props.foundFoodItems.map((foodItem) => 
                     (
                         // <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
-                        <ListItem button onClick={() => props.handleEditFoodItem(foodItem)}>
+                        <ListItem button onClick={() => props.triggerFoodItemUpdate(foodItem, 'edit')}>
                             <FoodItemResult foodItem={foodItem} />  
                             <ListItemSecondaryAction onClick={() => props.handleDeleteFoodItem(foodItem)}>
                                 <IconButton edge="end" aria-label="delete">

@@ -5,6 +5,7 @@ import SearchResults from '../components/viewFoodItemsPage/SearchResults';
 import DeleteFoodItemDialog from '../components/viewFoodItemsPage/DeleteFoodItemDialog';
 import EditFoodItemDialog from '../components/viewFoodItemsPage/EditFoodItemDialog';
 import CreateFoodItemDialog from '../components/viewFoodItemsPage/CreateFoodItemDialog';
+import CreateEditFoodItemDialog from '../components/viewFoodItemsPage/CreateEditFoodItemDialog';
 
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -17,7 +18,9 @@ export default class ViewFoodItems extends React.Component {
         foundFoodItems: [],
         foodItemToDelete: undefined,
         foodItemToEdit: undefined,
-        creatingFoodItem: false
+        creatingFoodItem: false,
+        foodItemToUpdate: undefined,
+        updateMode: undefined
     };
 
     handleSearchFoodItems = (results)  => {
@@ -76,6 +79,30 @@ export default class ViewFoodItems extends React.Component {
         this.setState(() => ({ creatingFoodItem: false }));
     }
 
+    // Trigger dialog box for editing / creating
+    triggerFoodItemUpdate = (foodItemToUpdate, updateMode) => {
+        console.log("Triggering a food item update with mode: " + updateMode);
+        this.setState(() => ({
+            foodItemToUpdate: foodItemToUpdate,
+            updateMode: updateMode
+        }));
+    }
+
+    resetFoodItemToUpdate = () => {
+        this.setState(() => ({
+            foodItemToUpdate: undefined,
+            updateMode: undefined
+        }));
+    }
+
+    sucessFoodItemUpdateHandler = (updatedFoodItem) => {
+        this.setState(() => ({
+            foundFoodItems: [updatedFoodItem],
+            foodItemToUpdate: undefined,
+            updateMode: undefined
+        }));
+    }
+
     // Sorting by alphabetical order
     nameComparison = (foodItemA, foodItemB) => {
         return foodItemA.name.localeCompare(foodItemB.name);
@@ -104,11 +131,12 @@ export default class ViewFoodItems extends React.Component {
                 <Divider />
                 <SearchResults 
                     foundFoodItems={this.state.foundFoodItems}
-                    handleDeleteFoodItem={this.handleDeleteFoodItem}
-                    handleEditFoodItem={this.handleEditFoodItem}
+                    handleDeleteFoodItem={this.handleDeleteFoodItem}        // Deprecate
+                    handleUpdateFoodItem={this.triggerFoodItemUpdate}       // Deprecate
+                    triggerFoodItemUpdate={this.triggerFoodItemUpdate}
                 />
 
-                {
+                {/* {
                     this.state.creatingFoodItem &&
                     <CreateFoodItemDialog
                         resetCreatingFoodItem={this.resetCreatingFoodItem}
@@ -131,6 +159,17 @@ export default class ViewFoodItems extends React.Component {
                         foodItemToEdit={this.state.foodItemToEdit}
                         resetFoodItemToEdit={this.resetFoodItemToEdit}
                         resetFoodItemToEditAfterSuccessfulEdit={this.resetFoodItemToEditAfterSuccessfulEdit}
+                    />
+                } */}
+
+                {
+                    this.state.foodItemToUpdate &&
+                    this.state.updateMode &&
+                    <CreateEditFoodItemDialog 
+                        foodItemToUpdate={this.state.foodItemToUpdate}
+                        updateMode={this.state.updateMode}
+                        resetFoodItemToUpdate={this.resetFoodItemToUpdate}
+                        sucessFoodItemUpdateHandler={this.sucessFoodItemUpdateHandler}
                     />
                 }
 
