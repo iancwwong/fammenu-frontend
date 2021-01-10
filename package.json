@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "live-server public",
     "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server --port 8081"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
