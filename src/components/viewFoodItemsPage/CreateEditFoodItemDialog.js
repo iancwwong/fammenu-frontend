@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input';
 
+const dataClient = require('../../utils/DataClient');
+
 export default class CreateEditFoodItemDialog extends React.Component {
 
     state = {
@@ -16,7 +18,6 @@ export default class CreateEditFoodItemDialog extends React.Component {
         labelsError: undefined
     }
 
-    updateMode = '';
     constructor(props) {
         // Safety check of updateMode
         super(props);
@@ -29,7 +30,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
         }
     }
 
-    updateName = '';
+    updateName = ((this.props.foodItemToUpdate) ? this.props.foodItemToUpdate.name : '');
     handleOnChangeName = () => {
         let candidateUpdateName = document.getElementById('foodItemName').value;
         if (!candidateUpdateName) {
@@ -44,7 +45,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
         this.updateName = candidateUpdateName;
     }
 
-    updateCuisine = '';
+    updateCuisine = ((this.props.foodItemToUpdate) ? this.props.foodItemToUpdate.cuisine : '');;
     handleOnChangeCuisine = () => {
         let candidateUpdateCuisine = document.getElementById('foodItemCuisine').value;      // Todo: Convert to lowercase
         if (!candidateUpdateCuisine) {
@@ -59,7 +60,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
         this.updateCuisine = candidateUpdateCuisine;
     }
 
-    updateLabels = [];
+    updateLabels = ((this.props.foodItemToUpdate) ? this.props.foodItemToUpdate.labels : []);;
     handleOnChangeLabels = (chips) => {
         // Todo: Sanitise chips??
         this.updateLabels = chips;
@@ -67,20 +68,53 @@ export default class CreateEditFoodItemDialog extends React.Component {
 
     // The actual update
     handleUpdateFoodItem = (originalFoodItem) => {
-        if (this.state.updateMode === 'edit') {
+
+        let foodItemToUpdate = {
+            name: this.updateName,
+            cuisine: this.updateCuisine,
+            labels: this.updateLabels
+        };
+
+        if (this.updateMode === 'edit') {
+            foodItemToUpdate.id = originalFoodItem.id;
             console.log("Editing food item from new edit/create dialog: " );
-            console.log(originalFoodItem);
+            console.log(foodItemToUpdate);
+            dataClient.updateFoodItemById(
+                foodItemToUpdate,
+                (editedFoodItem) => this.props.successFoodItemUpdateHandler(editedFoodItem),
+    
+                // Error callback
+                (err) => console.error(err)
+            );
         }
 
-        else if (this.state.updateMode === 'create') {
+        else if (this.updateMode === 'create') {
             console.log("Creating food item from new edit/create dialog: ");
+            console.log(foodItemToUpdate);
+            dataClient.createFoodItem(
+                foodItemToUpdate,
+                (createdFoodItem) => this.props.successFoodItemUpdateHandler(createdFoodItem),
+
+                // Error callback
+                (err) => console.error(err)
+            );
+        }
+    }
+
+    // Initial render: Handle case of edit
+    componentDidMount() {
+        if (this.updateMode === 'create') {
+            this.setState(() => ({
+                nameError: 'No name supplied',
+                cuisineError: 'No cuisine supplied'
+            }));
         }
     }
 
     render() {
         return (
             <Dialog 
-                open={!!this.props.foodItemToUpdate}
+                open={!!this.updateMode}
                 onClose={this.props.resetFoodItemToUpdate}
             >
                 <DialogTitle>
@@ -110,16 +144,15 @@ export default class CreateEditFoodItemDialog extends React.Component {
                             this.state.cuisineError ||
                             this.state.labelsError}
                         onClick={() => this.handleUpdateFoodItem(this.props.foodItemToUpdate)}
-                        style={(this.props.updateMode === 'edit') ? 
+                        style={(this.updateMode === 'edit') ? 
                                 {color: "green"} : {color:"primary"}}
                     >
-                        Update
+                        {(this.updateMode === 'edit') ? 'Update' : 'Create'}
                     </Button>
                 </DialogActions>
 
             </Dialog>
         );
-        
     }
 }
 

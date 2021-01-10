@@ -95,7 +95,7 @@ export default class ViewFoodItems extends React.Component {
         }));
     }
 
-    sucessFoodItemUpdateHandler = (updatedFoodItem) => {
+    successFoodItemUpdateHandler = (updatedFoodItem) => {
         this.setState(() => ({
             foundFoodItems: [updatedFoodItem],
             foodItemToUpdate: undefined,
@@ -121,7 +121,7 @@ export default class ViewFoodItems extends React.Component {
                     <Fab 
                         size="small"
                         color="primary" aria-label="add" 
-                        onClick={() => this.setState(() => ({ creatingFoodItem: true }))}
+                        onClick={() => this.triggerFoodItemUpdate(undefined, 'create')}
                     >
                         <AddIcon />
                     </Fab>
@@ -163,13 +163,12 @@ export default class ViewFoodItems extends React.Component {
                 } */}
 
                 {
-                    this.state.foodItemToUpdate &&
                     this.state.updateMode &&
                     <CreateEditFoodItemDialog 
                         foodItemToUpdate={this.state.foodItemToUpdate}
                         updateMode={this.state.updateMode}
                         resetFoodItemToUpdate={this.resetFoodItemToUpdate}
-                        sucessFoodItemUpdateHandler={this.sucessFoodItemUpdateHandler}
+                        successFoodItemUpdateHandler={this.successFoodItemUpdateHandler}
                     />
                 }
 
