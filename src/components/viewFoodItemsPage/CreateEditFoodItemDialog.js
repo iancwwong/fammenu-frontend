@@ -47,7 +47,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
 
     updateCuisine = ((this.props.foodItemToUpdate) ? this.props.foodItemToUpdate.cuisine : '');;
     handleOnChangeCuisine = () => {
-        let candidateUpdateCuisine = document.getElementById('foodItemCuisine').value;      // Todo: Convert to lowercase
+        let candidateUpdateCuisine = document.getElementById('foodItemCuisine').value.toLowerCase();
         if (!candidateUpdateCuisine) {
             this.setState(() => ({
                 cuisineError: 'Cuisine not given'
