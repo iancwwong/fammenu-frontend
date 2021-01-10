@@ -1,4 +1,5 @@
 const path = require('path');
+const DEV_PORT = 8081;
 
 module.exports = {
     entry: './src/index.js',
@@ -15,6 +16,7 @@ module.exports = {
     },
     devtool: 'eval-cheap-module-source-map',
     devServer: {
-        contentBase: path.join(__dirname, 'public')
+        contentBase: path.join(__dirname, 'public'),
+        port: DEV_PORT
     }
 };
