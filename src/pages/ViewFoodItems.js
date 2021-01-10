@@ -3,8 +3,6 @@ import Navbar from '../components/Navbar';
 import SearchForm from '../components/viewFoodItemsPage/SearchForm';
 import SearchResults from '../components/viewFoodItemsPage/SearchResults';
 import DeleteFoodItemDialog from '../components/viewFoodItemsPage/DeleteFoodItemDialog';
-import EditFoodItemDialog from '../components/viewFoodItemsPage/EditFoodItemDialog';
-import CreateFoodItemDialog from '../components/viewFoodItemsPage/CreateFoodItemDialog';
 import CreateEditFoodItemDialog from '../components/viewFoodItemsPage/CreateEditFoodItemDialog';
 
 import Grid from '@material-ui/core/Grid';
@@ -135,14 +133,6 @@ export default class ViewFoodItems extends React.Component {
                     handleUpdateFoodItem={this.triggerFoodItemUpdate}       // Deprecate
                     triggerFoodItemUpdate={this.triggerFoodItemUpdate}
                 />
-
-                {/* {
-                    this.state.creatingFoodItem &&
-                    <CreateFoodItemDialog
-                        resetCreatingFoodItem={this.resetCreatingFoodItem}
-                        handleCreateFoodItem={this.handleCreateFoodItem}
-                    />
-                }
                 
                 {
                     this.state.foodItemToDelete && 
@@ -152,15 +142,6 @@ export default class ViewFoodItems extends React.Component {
                         resetFoodItemToDeleteAfterSuccessfulDeletion={this.resetFoodItemToDeleteAfterSuccessfulDeletion}
                     />
                 }
-
-                {
-                    this.state.foodItemToEdit &&
-                    <EditFoodItemDialog 
-                        foodItemToEdit={this.state.foodItemToEdit}
-                        resetFoodItemToEdit={this.resetFoodItemToEdit}
-                        resetFoodItemToEditAfterSuccessfulEdit={this.resetFoodItemToEditAfterSuccessfulEdit}
-                    />
-                } */}
 
                 {
                     this.state.updateMode &&
