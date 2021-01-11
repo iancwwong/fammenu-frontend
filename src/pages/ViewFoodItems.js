@@ -129,8 +129,7 @@ export default class ViewFoodItems extends React.Component {
                 <Divider />
                 <SearchResults 
                     foundFoodItems={this.state.foundFoodItems}
-                    handleDeleteFoodItem={this.handleDeleteFoodItem}        // Deprecate
-                    handleUpdateFoodItem={this.triggerFoodItemUpdate}       // Deprecate
+                    handleDeleteFoodItem={this.handleDeleteFoodItem}
                     triggerFoodItemUpdate={this.triggerFoodItemUpdate}
                 />
                 

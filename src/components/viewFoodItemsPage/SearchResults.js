@@ -1,6 +1,5 @@
 import React from 'react';
 import FoodItemResult from './FoodItemResult';
-import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -23,7 +22,6 @@ const SearchResults = (props) => (
                 <List>
                     {props.foundFoodItems.map((foodItem) => 
                     (
-                        // <ListItem button component={Link} to={`/edit/${foodItem.id}`}>
                         <ListItem button onClick={() => props.triggerFoodItemUpdate(foodItem, 'edit')}>
                             <FoodItemResult foodItem={foodItem} />  
                             <ListItemSecondaryAction onClick={() => props.handleDeleteFoodItem(foodItem)}>
