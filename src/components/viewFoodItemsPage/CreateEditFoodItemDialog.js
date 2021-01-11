@@ -7,6 +7,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const dataClient = require('../../utils/DataClient');
 
@@ -15,7 +17,8 @@ export default class CreateEditFoodItemDialog extends React.Component {
     state = {
         nameError: undefined,
         cuisineError: undefined,
-        labelsError: undefined
+        labelsError: undefined,
+        attemptedUpdateSuccessful: false
     }
 
     constructor(props) {
@@ -80,21 +83,16 @@ export default class CreateEditFoodItemDialog extends React.Component {
             console.log("Editing food item from new edit/create dialog: " );
             console.log(foodItemToUpdate);
 
-            // Only update if at least one field has changed
-            if (foodItemToUpdate.name !== originalFoodItem.name ||
-                foodItemToUpdate.cuisine !== originalFoodItem.cuisine || 
-                foodItemToUpdate.labels.join(",").localeCompare(originalFoodItem.labels.join(","))) // Label comparison should consider mutability
-            {       
-                    dataClient.updateFoodItemById(
-                        foodItemToUpdate,
-                        (editedFoodItem) => this.props.successFoodItemUpdateHandler(editedFoodItem),
-            
-                        // Error callback
-                        (err) => console.error(err)
-                    );
-            } else {
-                return this.props.resetFoodItemToUpdate();
-            }
+            dataClient.updateFoodItemById(
+                foodItemToUpdate,
+                (editedFoodItem) => {
+                    this.triggerSuccessfulUpdateSnackbar();
+                    // this.props.successFoodItemUpdateHandler(editedFoodItem)
+                },
+    
+                // Error callback
+                (err) => console.error(err)
+            );
         }
 
         else if (this.updateMode === 'create') {
@@ -102,12 +100,27 @@ export default class CreateEditFoodItemDialog extends React.Component {
             console.log(foodItemToUpdate);
             dataClient.createFoodItem(
                 foodItemToUpdate,
-                (createdFoodItem) => this.props.successFoodItemUpdateHandler(createdFoodItem),
+                (createdFoodItem) => {
+                    this.triggerSuccessfulUpdateSnackbar();
+                    // this.props.successFoodItemUpdateHandler(createdFoodItem)
+                },
 
                 // Error callback
                 (err) => console.error(err)
             );
         }
+    }
+
+    triggerSuccessfulUpdateSnackbar = () => {
+        this.setState(() => ({
+            attemptedUpdateSuccessful: true
+        }));
+    }
+
+    closeUpdateSnackbar = () => {
+        this.setState(() => ({
+            attemptedUpdateSuccessful: false
+        }));
     }
 
     // Initial render: Handle case of edit
@@ -122,45 +135,63 @@ export default class CreateEditFoodItemDialog extends React.Component {
 
     render() {
         return (
-            <Dialog 
-                open={!!this.updateMode}
-                onClose={this.props.resetFoodItemToUpdate}
-            >
-                <DialogTitle>
-                    {
-                        (this.updateMode === 'edit') ?
-                            ('Edit food item') : ('Create food item')
-                    }
-                </DialogTitle>
-                <DialogContent>
-                    <CreateEditFoodItemForm
-                        foodItemToUpdate={this.props.foodItemToUpdate}
-                        nameError={this.state.nameError}
-                        handleOnChangeName={this.handleOnChangeName}
-                        cuisineError={this.state.cuisineError}
-                        handleOnChangeCuisine={this.handleOnChangeCuisine}
-                        labelsError={this.state.labelsError}
-                        handleOnChangeLabels={this.handleOnChangeLabels}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.resetFoodItemToUpdate} color="default">
-                        Cancel
-                    </Button>
-                    <Button 
-                        disabled={
-                            this.state.nameError ||
-                            this.state.cuisineError ||
-                            this.state.labelsError}
-                        onClick={() => this.handleUpdateFoodItem(this.props.foodItemToUpdate)}
-                        style={(this.updateMode === 'edit') ? 
-                                {color: "green"} : {color:"primary"}}
-                    >
-                        {(this.updateMode === 'edit') ? 'Update' : 'Create'}
-                    </Button>
-                </DialogActions>
+            <div>
+                <Dialog 
+                    open={!!this.updateMode}
+                    onClose={this.props.resetFoodItemToUpdate}
+                >
+                    <DialogTitle>
+                        {
+                            (this.updateMode === 'edit') ?
+                                ('Edit food item') : ('Create food item')
+                        }
+                    </DialogTitle>
+                    <DialogContent>
+                        <CreateEditFoodItemForm
+                            foodItemToUpdate={this.props.foodItemToUpdate}
+                            nameError={this.state.nameError}
+                            handleOnChangeName={this.handleOnChangeName}
+                            cuisineError={this.state.cuisineError}
+                            handleOnChangeCuisine={this.handleOnChangeCuisine}
+                            labelsError={this.state.labelsError}
+                            handleOnChangeLabels={this.handleOnChangeLabels}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.resetFoodItemToUpdate} color="default">
+                            Close
+                        </Button>
+                        <Button 
+                            disabled={
+                                this.state.nameError ||
+                                this.state.cuisineError ||
+                                this.state.labelsError}
+                            onClick={() => this.handleUpdateFoodItem(this.props.foodItemToUpdate)}
+                            style={(this.updateMode === 'edit') ? 
+                                    {color: "green"} : {color:"primary"}}
+                        >
+                            {(this.updateMode === 'edit') ? 'Update' : 'Create'}
+                        </Button>
+                    </DialogActions>
 
-            </Dialog>
+                </Dialog>
+
+                <Snackbar 
+                    open={this.state.attemptedUpdateSuccessful}
+                    autoHideDuration={6000} 
+                    onClose={this.closeUpdateSnackbar}
+                >
+                    <MuiAlert 
+                        elevation={6} 
+                        variant="filled" 
+                        onClose={this.closeUpdateSnackbar} 
+                        severity="success"
+                    >
+                        {(this.updateMode === 'edit') ? 'Successfully updated!' : 'Successfully created!'}
+                    </MuiAlert>
+                </Snackbar>
+
+            </div>
         );
     }
 }
