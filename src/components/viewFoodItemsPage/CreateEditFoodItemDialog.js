@@ -60,10 +60,10 @@ export default class CreateEditFoodItemDialog extends React.Component {
         this.updateCuisine = candidateUpdateCuisine;
     }
 
-    updateLabels = ((this.props.foodItemToUpdate) ? this.props.foodItemToUpdate.labels : []);;
+    updateLabels = ((this.props.foodItemToUpdate) ? this.props.foodItemToUpdate.labels : []);
     handleOnChangeLabels = (chips) => {
-        // Todo: Sanitise chips??
-        this.updateLabels = chips;
+        // Convert all labels to lowercase
+        this.updateLabels = chips.map((chipLabel) => chipLabel.toLowerCase());
     }
 
     // The actual update
@@ -79,13 +79,22 @@ export default class CreateEditFoodItemDialog extends React.Component {
             foodItemToUpdate.id = originalFoodItem.id;
             console.log("Editing food item from new edit/create dialog: " );
             console.log(foodItemToUpdate);
-            dataClient.updateFoodItemById(
-                foodItemToUpdate,
-                (editedFoodItem) => this.props.successFoodItemUpdateHandler(editedFoodItem),
-    
-                // Error callback
-                (err) => console.error(err)
-            );
+
+            // Only update if at least one field has changed
+            if (foodItemToUpdate.name !== originalFoodItem.name ||
+                foodItemToUpdate.cuisine !== originalFoodItem.cuisine || 
+                foodItemToUpdate.labels.join(",").localeCompare(originalFoodItem.labels.join(","))) // Label comparison should consider mutability
+            {       
+                    dataClient.updateFoodItemById(
+                        foodItemToUpdate,
+                        (editedFoodItem) => this.props.successFoodItemUpdateHandler(editedFoodItem),
+            
+                        // Error callback
+                        (err) => console.error(err)
+                    );
+            } else {
+                return this.props.resetFoodItemToUpdate();
+            }
         }
 
         else if (this.updateMode === 'create') {
