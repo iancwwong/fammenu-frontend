@@ -7,8 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import UpdateFeedbackSnackbar from './UpdateFeedbackSnackbar';
 
 const dataClient = require('../../utils/DataClient');
 
@@ -86,7 +85,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
             dataClient.updateFoodItemById(
                 foodItemToUpdate,
                 (editedFoodItem) => {
-                    this.triggerSuccessfulUpdateSnackbar();
+                    this.triggerFeedbackSnackbar();
                     // this.props.successFoodItemUpdateHandler(editedFoodItem)
                 },
     
@@ -101,7 +100,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
             dataClient.createFoodItem(
                 foodItemToUpdate,
                 (createdFoodItem) => {
-                    this.triggerSuccessfulUpdateSnackbar();
+                    this.triggerFeedbackSnackbar();
                     // this.props.successFoodItemUpdateHandler(createdFoodItem)
                 },
 
@@ -111,13 +110,13 @@ export default class CreateEditFoodItemDialog extends React.Component {
         }
     }
 
-    triggerSuccessfulUpdateSnackbar = () => {
+    triggerFeedbackSnackbar = () => {
         this.setState(() => ({
             attemptedUpdateSuccessful: true
         }));
     }
 
-    closeUpdateSnackbar = () => {
+    closeFeedbackSnackbar = () => {
         this.setState(() => ({
             attemptedUpdateSuccessful: false
         }));
@@ -176,20 +175,11 @@ export default class CreateEditFoodItemDialog extends React.Component {
 
                 </Dialog>
 
-                <Snackbar 
+                <UpdateFeedbackSnackbar
                     open={this.state.attemptedUpdateSuccessful}
-                    autoHideDuration={6000} 
-                    onClose={this.closeUpdateSnackbar}
-                >
-                    <MuiAlert 
-                        elevation={6} 
-                        variant="filled" 
-                        onClose={this.closeUpdateSnackbar} 
-                        severity="success"
-                    >
-                        {(this.updateMode === 'edit') ? 'Successfully updated!' : 'Successfully created!'}
-                    </MuiAlert>
-                </Snackbar>
+                    onClose={this.closeFeedbackSnackbar}
+                    updateMode={this.updateMode}
+                />
 
             </div>
         );
