@@ -12,9 +12,12 @@ const UpdateFeedbackSnackbar = (props) => (
             elevation={6} 
             variant="filled" 
             onClose={props.onClose} 
-            severity="success"
+            severity={(props.updateErrorMessage) ? 'error' : 'success'}
         >
-            {(props.updateMode === 'edit') ? 'Successfully updated!' : 'Successfully created!'}
+
+            { !(props.updateErrorMessage) && (props.updateMode === 'edit') && 'Successfully updated!' }
+            { !(props.updateErrorMessage) && (props.updateMode === 'create') && 'Successfully created!' }
+            { (props.updateErrorMessage) && 'Error: ' + props.updateErrorMessage }
         </MuiAlert>
     </Snackbar>
 );

@@ -9,6 +9,7 @@ import UpdateFeedbackSnackbar from '../feedback/UpdateFeedbackSnackbar';
 import CreateEditFoodItemForm from '../forms/CreateEditFoodItemForm';
 
 const dataClient = require('../../utils/DataClient');
+const errorInterpreter = require('../../utils/ErrorInterpreter');
 
 export default class CreateEditFoodItemDialog extends React.Component {
 
@@ -16,7 +17,8 @@ export default class CreateEditFoodItemDialog extends React.Component {
         nameError: undefined,
         cuisineError: undefined,
         labelsError: undefined,
-        attemptedUpdateSuccessful: false
+        attemptedUpdateSuccessful: false,
+        updateErrorMessage: undefined
     }
 
     constructor(props) {
@@ -89,7 +91,9 @@ export default class CreateEditFoodItemDialog extends React.Component {
                 },
     
                 // Error callback
-                (err) => console.error(err)
+                (err) => { 
+                    this.triggerFeedbackSnackbar(errorInterpreter.getErrorMessage(err));
+                 }
             );
         }
 
@@ -100,28 +104,42 @@ export default class CreateEditFoodItemDialog extends React.Component {
                 foodItemToUpdate,
                 (createdFoodItem) => {
                     this.triggerFeedbackSnackbar();
-                    this.props.successFoodItemUpdateHandler(createdFoodItem)
+                    this.props.successFoodItemUpdateHandler(createdFoodItem);
                 },
 
                 // Error callback
-                (err) => console.error(err)
+                (err) => { 
+                    this.triggerFeedbackSnackbar(errorInterpreter.getErrorMessage(err));
+                }
             );
         }
     }
 
-    triggerFeedbackSnackbar = () => {
+    erroredFoodItemUpdateHandler = (err) => {
+
+        let errorMessage = errorInterpreter.getErrorMessage(err);
+        console.log("Interpreted error: " + errorMessage);
+
+        // Trigger snackbar with error
+        this.triggerFeedbackSnackbar(errorMessage);
+    }
+
+    triggerFeedbackSnackbar = (errorMessage) => {
+        console.log("Triggering snackbar with error message: " + errorMessage)
         this.setState(() => ({
-            attemptedUpdateSuccessful: true
+            attemptedUpdateSuccessful: true,
+            updateErrorMessage: errorMessage
         }));
     }
 
     closeFeedbackSnackbar = () => {
         this.setState(() => ({
-            attemptedUpdateSuccessful: false
+            attemptedUpdateSuccessful: false,
+            updateErrorMessage: undefined
         }));
     }
 
-    // Initial render: Handle case of edit
+    // Initial render: Handle case of create
     componentDidMount() {
         if (this.updateMode === 'create') {
             this.setState(() => ({
@@ -176,6 +194,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
 
                 <UpdateFeedbackSnackbar
                     open={this.state.attemptedUpdateSuccessful}
+                    updateErrorMessage={this.state.updateErrorMessage}
                     onClose={this.closeFeedbackSnackbar}
                     updateMode={this.updateMode}
                 />

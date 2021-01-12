@@ -1,12 +1,4 @@
-import React from 'react';
-
-// Used to display a meaningful error message to user when food item is created
-const CreationError = (props) => (
-    <div>
-        <p>Error: {getErrorMessage(props.error)}</p>
-    </div>
-);
-
+// This file is used to decipher errors
 const getErrorMessage = (err) => {
 
     // Not sure what other error objects could look like
@@ -32,10 +24,12 @@ const getErrorMessage = (err) => {
                 errorMsg = JSON.stringify(exception);
         }
         return errorMsg;
-    } catch (err) {
-        return err;
+    } catch (interpretError) {
+        // Some undeciphered error - return a JSON string of original one
+        return JSON.stringify(err);
     }
- 
 }
 
-export default CreationError;
+module.exports = {
+    getErrorMessage
+}
