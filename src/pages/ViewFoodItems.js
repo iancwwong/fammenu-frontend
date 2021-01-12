@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import SearchForm from '../components/viewFoodItemsPage/SearchForm';
+import SearchForm from '../components/forms/SearchForm';
 import SearchResults from '../components/viewFoodItemsPage/SearchResults';
-import DeleteFoodItemDialog from '../components/viewFoodItemsPage/DeleteFoodItemDialog';
-import CreateEditFoodItemDialog from '../components/viewFoodItemsPage/CreateEditFoodItemDialog';
+import DeleteFoodItemDialog from '../components/dialog/DeleteFoodItemDialog';
+import CreateEditFoodItemDialog from '../components/dialog/CreateEditFoodItemDialog';
 
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
