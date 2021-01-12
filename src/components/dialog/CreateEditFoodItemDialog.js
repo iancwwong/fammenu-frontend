@@ -85,7 +85,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
                 foodItemToUpdate,
                 (editedFoodItem) => {
                     this.triggerFeedbackSnackbar();
-                    // this.props.successFoodItemUpdateHandler(editedFoodItem)
+                    this.props.successFoodItemUpdateHandler(editedFoodItem)
                 },
     
                 // Error callback
@@ -100,7 +100,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
                 foodItemToUpdate,
                 (createdFoodItem) => {
                     this.triggerFeedbackSnackbar();
-                    // this.props.successFoodItemUpdateHandler(createdFoodItem)
+                    this.props.successFoodItemUpdateHandler(createdFoodItem)
                 },
 
                 // Error callback

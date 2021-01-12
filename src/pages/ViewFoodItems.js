@@ -94,16 +94,40 @@ export default class ViewFoodItems extends React.Component {
     }
 
     successFoodItemUpdateHandler = (updatedFoodItem) => {
-        this.setState(() => ({
-            foundFoodItems: [updatedFoodItem],
-            foodItemToUpdate: undefined,
-            updateMode: undefined
-        }));
+
+        switch (this.state.updateMode) {
+
+            // If it's a successful edit, replace the existing food item with updated one
+            case 'edit':
+                this.setState((prevState) => ({
+                    foundFoodItems: prevState.foundFoodItems.map((foodItem) =>
+                        (foodItem.id === updatedFoodItem.id) ?
+                            foodItem = updatedFoodItem :
+                            foodItem
+                )}));
+                break;
+
+            // If it's a successful create, add the newly created food item to food results
+            case 'create':
+                this.setState((prevState) => ({
+                    foundFoodItems: prevState.foundFoodItems.concat(updatedFoodItem).sort(this.nameComparison)
+                }));
+                break;
+
+            default:
+                console.log("Oh, some weird update mode specified... no handler for that!");
+
+        }
     }
 
     // Sorting by alphabetical order
     nameComparison = (foodItemA, foodItemB) => {
         return foodItemA.name.localeCompare(foodItemB.name);
+    }
+
+    componentDidUpdate() {
+        // make sure food items are always sorted
+        this.state.foundFoodItems.sort(this.nameComparison);
     }
 
     render() {
