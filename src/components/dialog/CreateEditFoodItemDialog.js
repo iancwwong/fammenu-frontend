@@ -125,7 +125,6 @@ export default class CreateEditFoodItemDialog extends React.Component {
     }
 
     triggerFeedbackSnackbar = (errorMessage) => {
-        console.log("Triggering snackbar with error message: " + errorMessage)
         this.setState(() => ({
             attemptedUpdateSuccessful: true,
             updateErrorMessage: errorMessage
@@ -134,8 +133,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
 
     closeFeedbackSnackbar = () => {
         this.setState(() => ({
-            attemptedUpdateSuccessful: false,
-            updateErrorMessage: undefined
+            attemptedUpdateSuccessful: false
         }));
     }
 
