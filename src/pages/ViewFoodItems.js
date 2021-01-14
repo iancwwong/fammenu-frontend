@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
 
 export default class ViewFoodItems extends React.Component {
 
@@ -134,7 +135,9 @@ export default class ViewFoodItems extends React.Component {
         return (
             <div>
                 <Navbar />
-                <h2>Food Items Viewing Page</h2> 
+                <Typography variant="h6">
+                    Food Items Viewing Page
+                </Typography>
 
                 <Grid container direction="row">
                     <SearchForm 
