@@ -134,7 +134,7 @@ export default class ViewFoodItems extends React.Component {
         return (
             <div>
                 <Navbar />
-                <h1>Food Items Viewing Page</h1>
+                <h1 className="header__title">Food Items Viewing Page</h1>
 
                 <Grid container direction="row">
                     <SearchForm 

@@ -5,7 +5,7 @@ const HomePage = () => (
     <div>
         <Navbar />
 
-        <h1>Welcome to the fammenu-frontend!</h1>
+        <h1 className="header__title">Welcome to the fammenu-frontend!</h1>
     </div>
 );
 
