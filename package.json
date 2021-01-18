@@ -23,10 +23,12 @@
     "graphql-request": "^3.4.0",
     "live-server": "^1.2.1",
     "material-ui-chip-input": "^1.1.0",
+    "node-sass": "^5.0.0",
     "normalize.css": "7.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "sass-loader": "6.0.6",
     "style-loader": "0.18.2",
     "webpack": "3.1.0",
     "webpack-dev-server": "2.5.1"

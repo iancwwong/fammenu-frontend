@@ -6,18 +6,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Typography from '@material-ui/core/Typography';
 
 const SearchResults = (props) => (
     <div>
-        <Typography>
+        <h3>
             {
                 (props.foundFoodItems && props.foundFoodItems.length > 0) ? 
                     (<p>{props.foundFoodItems.length} food items found!</p>)
                 :
                     (<p>No results</p>)
             }
-        </Typography>
+        </h3>
 
         {
             (props.foundFoodItems && props.foundFoodItems.length > 0) &&
