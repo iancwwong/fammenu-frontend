@@ -6,8 +6,9 @@ WORKDIR /app
 # Prepare app dependencies
 ADD package.json /app/package.json
 ADD . /app
-RUN npm install -g yarn && \
-    yarn run build
+
+# Need to fix the following - we shouldn't need to build codebase here in docker...
+RUN yarn install && yarn run build
 
 # Start the app from container
 EXPOSE 8080
