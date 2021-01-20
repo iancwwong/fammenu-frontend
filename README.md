@@ -1,4 +1,7 @@
 # Frontend
+The frontend component of the fammenu project!
+
+Currently a CRUD application for Food Items (must make sure fammenu-backend is running)
 
 ## Running notes
 
