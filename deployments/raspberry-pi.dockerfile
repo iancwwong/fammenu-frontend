@@ -1,4 +1,6 @@
-FROM mhart/alpine-node:latest
+#FROM mhart/alpine-node:latest
+# Need to optimise the image...
+FROM arm64v8/node
 
 # Initialise app directory
 WORKDIR /app
