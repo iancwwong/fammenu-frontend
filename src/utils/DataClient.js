@@ -6,7 +6,8 @@ import { GraphQLClient, gql } from 'graphql-request';
 // ------------------------
 
 // Backend URL for querying
-const BACKEND_URL = 'http://localhost:3000/graphql';
+const BACKEND_HOST = process.env.DATA_HOST || '127.0.0.1';
+const BACKEND_URL = `http://${BACKEND_HOST}:3000/graphql`;
 const GraphqlClient = new GraphQLClient(BACKEND_URL);
 
 // ------------------------
