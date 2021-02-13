@@ -66,17 +66,6 @@ export default class ViewFoodItems extends React.Component {
         }));
     }
 
-    handleCreateFoodItem = (createdFoodItem) => {
-        this.setState(() => ({
-            foundFoodItems: [createdFoodItem],
-            creatingFoodItem: false
-        }));
-    }
-
-    resetCreatingFoodItem = () => {
-        this.setState(() => ({ creatingFoodItem: false }));
-    }
-
     // Trigger dialog box for editing / creating
     triggerFoodItemUpdate = (foodItemToUpdate, updateMode) => {
         console.log("Triggering a food item update with mode: " + updateMode);
