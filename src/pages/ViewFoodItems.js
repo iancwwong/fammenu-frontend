@@ -16,7 +16,6 @@ export default class ViewFoodItems extends React.Component {
         foundFoodItems: [],
         foodItemToDelete: undefined,
         foodItemToEdit: undefined,
-        creatingFoodItem: false,
         foodItemToUpdate: undefined,
         updateMode: undefined
     };
