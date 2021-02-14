@@ -172,7 +172,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.resetFoodItemToUpdate} color="default">
+                        <Button onClick={this.props.resetFoodItemToUpdate} color="default">     {/* default is no colour */}
                             Close
                         </Button>
                         <Button 
@@ -182,7 +182,7 @@ export default class CreateEditFoodItemDialog extends React.Component {
                                 this.state.labelsError}
                             onClick={() => this.handleUpdateFoodItem(this.props.foodItemToUpdate)}
                             style={(this.updateMode === 'edit') ? 
-                                    {color: "green"} : {color:"primary"}}
+                                    {color: "green"} : {color:"primary"}}       // Primary is blue
                         >
                             {(this.updateMode === 'edit') ? 'Update' : 'Create'}
                         </Button>
