@@ -17,3 +17,9 @@ yarn run serve
 # In dev mode
 yarn run dev-server
 ```
+
+Before building docker image, make sure to run `yarn build` first!
+```
+yarn build
+docker build -t fammenu_frontend .
+```
